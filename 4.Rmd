@@ -1,0 +1,34 @@
+---
+title: "Untitled"
+author: "Ori Wang"
+date: "08/04/2021"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(tidyverse)
+library(DBI)
+library(RSQLite)
+library(ggmap)
+library(ggthemes)
+library(gridExtra)
+library(forcats)
+library(lutz)
+library(lubridate)
+```
+
+
+```{r}
+d <- read_csv("./airports/airline.csv")
+con <- dbConnect(RSQLite::SQLite(), path = "data/:flights:")
+copy_to(con, d, "flights", 
+        temporary = FALSE, 
+        indexes = list(c("DAY_OF_MONTH", "ORIGIN", "DEST", 
+         "OP_CARRIER", "TAIL_NUM", "DEP_DELAY", "ARR_DELAY")))
+```
