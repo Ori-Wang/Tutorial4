@@ -1,0 +1,45 @@
+
+```{r}
+###key!
+airport_traffic3 <- flights %>% 
+  select(DAY_OF_WEEK, ORIGIN) %>%
+  filter(ORIGIN == "LAX") %>% 
+  group_by(DAY_OF_WEEK) %>% 
+  count(airport = "LAX") %>% ungroup() 
+
+airport_traffic4 <- flights %>% 
+  select(DAY_OF_WEEK, ORIGIN) %>%
+  filter(ORIGIN == "DFW") %>% 
+  group_by(DAY_OF_WEEK) %>% 
+  count(airport = "DFW") %>% ungroup() %>% 
+  bind_rows(airport_traffic3) %>% rename(flight_num = n)
+
+airport_traffic4 %>% ggplot(aes(x=DAY_OF_WEEK, y=flight_num, color = airport)) + 
+  geom_point(alpha=0.3) + 
+  geom_line() + 
+  xlab("wday") + 
+  ylab("Departure number") +
+  theme_bw()
+```
+ 
+ 
+```{r}
+#key!!!
+DEP_Delays <- flights %>%
+  filter(ORIGIN == c("LAX", "DFW")) %>% 
+           group_by(ORIGIN, DAY_OF_MONTH) %>%
+  summarise(min_delay = min(DEP_DELAY, na.rm=TRUE), 
+                 max_delay = max(DEP_DELAY, na.rm=TRUE), 
+                 medi_delay = median(DEP_DELAY, na.rm=TRUE))  
+
+DEP_Delays %>% ggplot(aes(x=DAY_OF_MONTH, y=medi_delay, color = ORIGIN)) + 
+  geom_point(alpha=0.3) + 
+  geom_line() + 
+  xlab("DAY") + 
+  ylab("Departure delay") +
+  theme_bw()
+```
+
+
+
+1234567
