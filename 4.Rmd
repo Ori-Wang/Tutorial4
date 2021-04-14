@@ -32,3 +32,23 @@ copy_to(con, d, "flights",
         indexes = list(c("DAY_OF_MONTH", "ORIGIN", "DEST", 
          "OP_CARRIER", "TAIL_NUM", "DEP_DELAY", "ARR_DELAY")))
 ```
+
+```{r }  
+flights <- d %>% select(MONTH, DAY_OF_WEEK, ORIGIN, DEST, 
+         OP_CARRIER, TAIL_NUM, DEP_DELAY, ARR_DELAY)
+
+flights_DFW <- flights %>% dplyr::filter(ORIGIN == "DFW"| 
+                                         DEST == "DFW")
+flights_LAX <- flights %>% dplyr::filter(ORIGIN == "LAX"| 
+                                         DEST == "LAX")
+```
+
+
+```{r}
+airport_traffic <- flights %>% 
+  group_by(ORIGIN) %>% 
+  tally(sort=TRUE) %>%
+  collect() 
+head(airport_traffic, 6)
+
+```
