@@ -1,0 +1,7 @@
+Making effective data plots 1. Principles / science of data visualisation
+2. Features of graphics
+28/70
+Principles / science of data visualization Palettes and colour blindness
+change blindness
+using proximity
+hierarchy of mappings
